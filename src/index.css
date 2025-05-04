@@ -1,0 +1,388 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, #0a0a0a, #1f1f1f);
+  color: #f3f4f6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background 0.5s ease;
+}
+
+/* Starry background overlay */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.2)"/></svg>');
+  background-size: 10px 10px;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+/* Alternate gradient for click toggle */
+body.alt-bg {
+  background: linear-gradient(135deg, #1f1f1f, #333333);
+}
+
+/* Scroll-based gradient angle animation */
+@keyframes gradientShift {
+  0% {
+    background: linear-gradient(135deg, #0a0a0a, #1f1f1f);
+  }
+  100% {
+    background: linear-gradient(180deg, #0a0a0a, #1f1f1f);
+  }
+}
+
+body.scroll-animated {
+  animation: gradientShift 0.5s ease forwards;
+}
+
+a {
+  color: #4b9cea;
+  transition: color 0.2s, transform 0.2s;
+}
+a:hover {
+  color: #7bb8f5;
+  transform: scale(1.05);
+}
+
+.quick-facts {
+  transition: max-height 0.3s ease-in-out, transform 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateX(-20px);
+  opacity: 0;
+}
+.quick-facts.open {
+  max-height: 200px;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.chatbot {
+  transition: max-height 0.3s ease-in-out, transform 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(20px);
+  opacity: 0;
+}
+.chatbot.open {
+  max-height: 400px;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.chatbot-message {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #7c3aed;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quote {
+  font-style: italic;
+  color: #d1d5db;
+}
+
+.tooltip {
+  position: relative;
+}
+.tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.logo:hover {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Typing animation for chatbot */
+.typing::after {
+  content: '|';
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Landing Page Styles */
+.hero {
+  animation: fadeIn 1s ease-in-out;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+  z-index: -1;
+  transform: translateY(0);
+  transition: transform 0.1s ease-out;
+}
+
+.feature-card {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+}
+
+.cta-button {
+  background: linear-gradient(to right, black, #0A0A0A);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+}
+
+.cta-button.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Header and component backgrounds */
+header, .quick-facts, .chatbot, .feature-card, .infobox {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a) !important;
+  border-color: #333333 !important;
+}
+
+/* Crypto Coin Fountain Animation */
+.coin-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.coin {
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  transition: opacity 0.5s ease;
+}
+
+.coin.animate {
+  animation: fountain 2s ease-out forwards;
+  animation-duration: calc(1.5s + (var(--random-duration) * 1s));
+  animation-delay: calc(var(--random-delay) * 400ms);
+}
+
+@keyframes fountain {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-400px) rotate(180deg) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-800px) rotate(360deg) scale(0.9);
+  }
+}
+
+/* Fancy Blockchain Wiki Text Animations */
+.fancy-text {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #e0e7ff;
+  display: inline-flex;
+  animation: textPulse 3s infinite ease-in-out;
+  will-change: transform, text-shadow;
+}
+
+.fancy-text span {
+  display: inline-block;
+  opacity: 0;
+  animation: letterFadeIn 0.5s ease-in-out forwards;
+  animation-delay: calc(0.1s * var(--letter-index));
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.fancy-text:hover span {
+  transform: scale(1.05);
+  text-shadow: 0 0 10px rgba(124, 58, 237, 0.8), 0 0 20px rgba(75, 156, 234, 0.6);
+}
+
+@keyframes letterFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(124, 58, 237, 0.5), 0 0 10px rgba(75, 156, 234, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(124, 58, 237, 0.8), 0 0 20px rgba(75, 156, 234, 0.6);
+    transform: scale(1.02);
+  }
+}
+
+/* Article content black gradient */
+.article-content {
+  background: linear-gradient(135deg, #0a0a0a, #1f1f1f);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Events modal */
+.events-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.events-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.events-modal-content {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  border: 1px solid #333333;
+  border-radius: 0.5rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.events-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(to right, #7c3aed, #4b9cea);
+  color: #e0e7ff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.events-modal-close:hover {
+  transform: scale(1.05);
+}
+
+.event-item {
+  margin-bottom: 1.5rem;
+}
+
+.event-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f3f4f6;
+  margin-bottom: 0.5rem;
+}
+
+.event-item p {
+  color: #d1d5db;
+  margin-bottom: 0.5rem;
+}
+
+.event-item a {
+  color: #4b9cea;
+  text-decoration: underline;
+}
+
+.event-item a:hover {
+  color: #7bb8f5;
+  transform: scale(1.05);
+}
