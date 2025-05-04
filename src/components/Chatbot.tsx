@@ -19,8 +19,8 @@ const Chatbot: React.FC = () => {
         if (question.includes('what is blockchain')) {
           answer =
             'A blockchain is a decentralized, distributed ledger that records transactions across a network of computers, ensuring security, transparency, and immutability.';
-        } else if (question.includes('who created blockchain')) {
-          answer = 'Blockchain was introduced by Satoshi Nakamoto in 2008 as part of the Bitcoin whitepaper.';
+        } else if (question.includes('why blockchain is created?')) {
+          answer = 'Blockchain was introduce by anonymous name satoshi nakamoto, for a reason to make transactions secure and transparent without need of middle person or entity.';
         } else if (question.includes('when was blockchain introduced')) {
           answer = 'Blockchain was introduced in 2008 with the Bitcoin whitepaper.';
         } else if (question.includes('what are blockchain applications')) {
